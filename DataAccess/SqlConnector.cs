@@ -23,6 +23,11 @@ namespace Lnow.Libraries.DataAccess
         private readonly string connectionString;
 
         /// <summary>
+        /// Connection for transaction being active.
+        /// </summary>
+        private SqlConnection connection;
+
+        /// <summary>
         /// Currently active transaction, or null if no transaction.
         /// </summary>
         private SqlTransaction transaction;
@@ -82,8 +87,8 @@ namespace Lnow.Libraries.DataAccess
                 throw new InvalidOperationException("Transaction is already in progress");
             }
 
-            var connection = this.CreateConnection();
-            this.transaction = connection.BeginTransaction(isolationLevel);
+            this.connection = this.CreateConnection();
+            this.transaction = this.connection.BeginTransaction(isolationLevel);
         }
 
         /// <summary>
@@ -129,7 +134,21 @@ namespace Lnow.Libraries.DataAccess
         /// <returns>Command created.</returns>
         public DbCommand CreateCommand()
         {
-            throw new NotImplementedException();
+            SqlCommand result = null;
+            try
+            {
+                result = new SqlCommand();
+                return result;
+            }
+            catch
+            {
+                if (result != null)
+                {
+                    result.Dispose();
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -138,7 +157,7 @@ namespace Lnow.Libraries.DataAccess
         /// <returns>Parameter created.</returns>
         public DbParameter CreateParameter()
         {
-            throw new NotImplementedException();
+            return new SqlParameter();
         }
 
         /// <summary>
@@ -164,7 +183,22 @@ namespace Lnow.Libraries.DataAccess
         /// <returns>Connection created.</returns>
         private SqlConnection CreateConnection()
         {
-            return new SqlConnection(this.connectionString);
+            SqlConnection result = null;
+            try
+            {
+                result = new SqlConnection(this.connectionString);
+                result.Open();
+                return result;
+            }
+            catch
+            {
+                if (result != null)
+                {
+                    result.Dispose();
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -176,6 +210,12 @@ namespace Lnow.Libraries.DataAccess
             {
                 this.transaction.Dispose();
                 this.transaction = null;
+            }
+
+            if (this.connection != null)
+            {
+                this.connection.Dispose();
+                this.connection = null;
             }
         }
     }
