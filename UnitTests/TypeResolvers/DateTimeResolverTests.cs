@@ -38,9 +38,9 @@ namespace Lnow.Libraries.DataAccess.UnitTests.TypeResolvers
         {
             var value = DateTime.MinValue;
             var resolver = new DateTimeResolver();
-            var dbType = resolver.ResolveType(value);
-            Assert.IsNotNull(dbType, "Not null value should be calculated");
-            Assert.AreEqual(DbType.DateTime2, dbType.Value, "Database type should be DateTime2");
+            var databaseType = resolver.ResolveType(value);
+            Assert.IsNotNull(databaseType, "Not null value should be calculated");
+            Assert.AreEqual(DbType.DateTime2, databaseType.Value, "Database type should be DateTime2");
         }
     }
 }

@@ -171,7 +171,6 @@ namespace Lnow.Libraries.DataAccess
                 if (this.transaction != null)
                 {
                     this.FinalizeTransaction();
-                    this.transaction.Dispose();
                     this.transaction = null;
                 }
             }

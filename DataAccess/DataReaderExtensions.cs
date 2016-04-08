@@ -166,11 +166,15 @@ namespace Lnow.Libraries.DataAccess
         public static T ReadValueType<T>(this DbDataReader reader, string columnName, Func<object, T> valueConverter)
             where T : struct
         {
+            if (valueConverter == null)
+            {
+                throw new ArgumentNullException("valueConverter", "Value converter must not be null");
+            }
+
             var value = reader.ReadObject(columnName);
             if (value == null)
             {
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "Attempted to read non-nullable value from null column '{0}'", columnName));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Attempted to read non-nullable value from null column '{0}'", columnName));
             }
 
             return valueConverter(value);
@@ -184,10 +188,14 @@ namespace Lnow.Libraries.DataAccess
         /// <param name="columnName">Name of column to read.</param>
         /// <param name="valueConverter">Value converter to use</param>
         /// <returns>Value retrieved.</returns>
-        public static T? ReadValueTypeNullable<T>(this DbDataReader reader, string columnName,
-            Func<object, T> valueConverter)
+        public static T? ReadValueTypeNullable<T>(this DbDataReader reader, string columnName, Func<object, T> valueConverter)
             where T : struct
         {
+            if (valueConverter == null)
+            {
+                throw new ArgumentNullException("valueConverter", "Value converter must not be null");
+            }
+
             var value = reader.ReadObject(columnName);
             if (value == null)
             {
@@ -205,15 +213,18 @@ namespace Lnow.Libraries.DataAccess
         /// <param name="columnName">Name of column to read.</param>
         /// <param name="valueConverter">Value converter to use</param>
         /// <returns>Value retrieved.</returns>
-        public static T ReadReferenceType<T>(this DbDataReader reader, string columnName,
-            Func<object, T> valueConverter)
+        public static T ReadReferenceType<T>(this DbDataReader reader, string columnName, Func<object, T> valueConverter)
             where T : class
         {
+            if (valueConverter == null)
+            {
+                throw new ArgumentNullException("valueConverter", "Value converter must not be null");
+            }
+
             var value = reader.ReadObject(columnName);
             if (value == null)
             {
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "Attempted to read non-nullable value from null column '{0}'", columnName));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Attempted to read non-nullable value from null column '{0}'", columnName));
             }
 
             return valueConverter(value);
@@ -227,10 +238,14 @@ namespace Lnow.Libraries.DataAccess
         /// <param name="columnName">Name of column to read.</param>
         /// <param name="valueConverter">Value converter to use</param>
         /// <returns>Value retrieved.</returns>
-        public static T ReadReferenceTypeNullable<T>(this DbDataReader reader, string columnName,
-            Func<object, T> valueConverter)
+        public static T ReadReferenceTypeNullable<T>(this DbDataReader reader, string columnName, Func<object, T> valueConverter)
             where T : class
         {
+            if (valueConverter == null)
+            {
+                throw new ArgumentNullException("valueConverter", "Value converter must not be null");
+            }
+
             var value = reader.ReadObject(columnName);
             if (value == null)
             {

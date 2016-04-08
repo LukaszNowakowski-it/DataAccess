@@ -5,14 +5,13 @@
 // <author>Łukasz Nowakowski</author>
 // <description>Contains unit tests for DataReaderExtensions class.</description>
 
-using System.Collections.Generic;
-using System.Data.Common;
-using Moq;
-
 namespace Lnow.Libraries.DataAccess.UnitTests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data.Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     /// <summary>
     /// Unit tests for <see cref="DataReaderExtensions" /> class.
@@ -27,9 +26,11 @@ namespace Lnow.Libraries.DataAccess.UnitTests
         public void ReadObjectRetrievesValue()
         {
             object testValue = "123456";
-            var reader = CreateReaderMock("ColumnName", testValue);
-            var retrieved = reader.ReadObject("ColumnName");
-            Assert.AreSame(testValue, retrieved, "Instances are different");
+            using (var reader = CreateReaderMock("ColumnName", testValue))
+            {
+                var retrieved = reader.ReadObject("ColumnName");
+                Assert.AreSame(testValue, retrieved, "Instances are different");
+            }
         }
 
         /// <summary>
@@ -38,10 +39,12 @@ namespace Lnow.Libraries.DataAccess.UnitTests
         [TestMethod]
         public void ReadValueTypeRetrievesValue()
         {
-            const int value = 123;
-            var reader = CreateReaderMock("123", value);
-            var retrieved = reader.ReadValueType("123", Convert.ToInt32);
-            Assert.AreEqual(value, retrieved, "Invalid value retrieved");
+            const int Expected = 123;
+            using (var reader = CreateReaderMock("123", Expected))
+            {
+                var retrieved = reader.ReadValueType("123", Convert.ToInt32);
+                Assert.AreEqual(Expected, retrieved, "Invalid value retrieved");
+            }
         }
 
         /// <summary>
@@ -51,9 +54,11 @@ namespace Lnow.Libraries.DataAccess.UnitTests
         public void ReadValueTypeNullableRetrievesValue()
         {
             int? value = 123;
-            var reader = CreateReaderMock("123", value);
-            var retrieved = reader.ReadValueTypeNullable("123", Convert.ToInt32);
-            Assert.AreEqual(value, retrieved, "Invalid value retrieved");
+            using (var reader = CreateReaderMock("123", value))
+            {
+                var retrieved = reader.ReadValueTypeNullable("123", Convert.ToInt32);
+                Assert.AreEqual(value, retrieved, "Invalid value retrieved");
+            }
         }
 
         /// <summary>
@@ -64,7 +69,7 @@ namespace Lnow.Libraries.DataAccess.UnitTests
         /// <returns>Mock created.</returns>
         private static DbDataReader CreateReaderMock(string column, object value)
         {
-            return CreateReaderMock(new Dictionary<string, object>() {{column, value}});
+            return CreateReaderMock(new Dictionary<string, object>() { { column, value } });
         }
 
         /// <summary>
