@@ -14,7 +14,7 @@ namespace Lnow.Libraries.DataAccess
     using System.Data.Common;
     using System.Globalization;
     using System.Linq;
-    
+
     /// <summary>
     /// Base class for types interacting with database.
     /// </summary>
@@ -76,11 +76,13 @@ namespace Lnow.Libraries.DataAccess
         /// <typeparam name="TItem">Type of item returned in a row.</typeparam>
         /// <param name="commandText">Command text to execute.</param>
         /// <param name="parameters">Command parameters to pass.</param>
+        /// <param name="commandModifier">Delegate, that allows modification of command just before execution.</param>
         /// <param name="rowReader">Delegate for reading single row from database.</param>
         /// <returns>Collection of rows found.</returns>
         protected Collection<TItem> ExecuteQuery<TItem>(
             string commandText,
             Dictionary<string, object> parameters,
+            Action<DbCommand> commandModifier,
             RowReader<TItem> rowReader)
             where TItem : class
         {
@@ -92,6 +94,7 @@ namespace Lnow.Libraries.DataAccess
             return this.Execute(
                 commandText,
                 parameters,
+                commandModifier,
                 command =>
                 {
                     var reader = command.ExecuteReader();
@@ -102,6 +105,61 @@ namespace Lnow.Libraries.DataAccess
                     }
 
                     return result;
+                });
+        }
+
+        /// <summary>
+        /// Executes command, that returns rows from database.
+        /// </summary>
+        /// <typeparam name="TItem">Type of item returned in a row.</typeparam>
+        /// <param name="commandText">Command text to execute.</param>
+        /// <param name="parameters">Command parameters to pass.</param>
+        /// <param name="rowReader">Delegate for reading single row from database.</param>
+        /// <returns>Collection of rows found.</returns>
+        protected Collection<TItem> ExecuteQuery<TItem>(
+            string commandText,
+            Dictionary<string, object> parameters,
+            RowReader<TItem> rowReader)
+            where TItem : class
+        {
+            return ExecuteQuery(commandText, parameters, null, rowReader);
+        }
+
+        /// <summary>
+        /// Executes command, that returns it's result as return value
+        /// </summary>
+        /// <typeparam name="TResult">Type of result returned.</typeparam>
+        /// <param name="commandText">Command text to execute.</param>
+        /// <param name="parameters">Command parameters to pass.</param>
+        /// <param name="commandModifier">Delegate, that allows modification of command just before execution.</param>
+        /// <param name="resultConverter">Delegate for converting result to specific type.</param>
+        /// <returns>Result received from database.</returns>
+        protected TResult ExecuteCommand<TResult>(
+            string commandText,
+            Dictionary<string, object> parameters,
+            Action<DbCommand> commandModifier,
+            Func<object, TResult> resultConverter)
+        {
+            if (resultConverter == null)
+            {
+                throw new ArgumentNullException("resultConverter", "Row reader is required");
+            }
+
+            return this.Execute(
+                commandText,
+                parameters,
+                commandModifier,
+                command =>
+                {
+                    var returnValueKey = this.AttachReturnValue(command, parameters);
+                    command.ExecuteNonQuery();
+                    var parameter = command.Parameters[returnValueKey];
+                    if (parameter != null)
+                    {
+                        return resultConverter(parameter.Value);
+                    }
+
+                    return default(TResult);
                 });
         }
 
@@ -118,26 +176,7 @@ namespace Lnow.Libraries.DataAccess
             Dictionary<string, object> parameters,
             Func<object, TResult> resultConverter)
         {
-            if (resultConverter == null)
-            {
-                throw new ArgumentNullException("resultConverter", "Row reader is required");
-            }
-
-            return this.Execute(
-                commandText,
-                parameters,
-                command =>
-                {
-                    var returnValueKey = this.AttachReturnValue(command, parameters);
-                    command.ExecuteNonQuery();
-                    var parameter = command.Parameters[returnValueKey];
-                    if (parameter != null)
-                    {
-                        return resultConverter(parameter.Value);
-                    }
-
-                    return default(TResult);
-                });
+            return ExecuteCommand(commandText, parameters, null, resultConverter);
         }
 
         /// <summary>
@@ -146,12 +185,14 @@ namespace Lnow.Libraries.DataAccess
         /// <typeparam name="T">Type of database result.</typeparam>
         /// <param name="commandText">Command text to execute.</param>
         /// <param name="parameters">Command parameters to pass.</param>
+        /// <param name="commandModifier">Delegate, that allows modification of command just before execution.</param>
         /// <param name="commandExecution">Delegate executing logic for retrieving data from command.</param>
         /// <returns>Result received from database.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Command text is used always as a stored procedure name")]
         private T Execute<T>(
             string commandText,
             Dictionary<string, object> parameters,
+            Action<DbCommand> commandModifier,
             Func<DbCommand, T> commandExecution)
         {
             if (string.IsNullOrEmpty(commandText))
@@ -169,6 +210,11 @@ namespace Lnow.Libraries.DataAccess
                 }
 
                 command.Connection = this.connector.Connection;
+                if (commandModifier != null)
+                {
+                    commandModifier(command);
+                }
+
                 return commandExecution(command);
             }
         }
