@@ -1,0 +1,492 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lnow.Libraries.DataAccess</name>
+    </assembly>
+    <members>
+        <member name="T:Lnow.Libraries.DataAccess.ConnectorBase">
+            <summary>
+            Base class for types interacting with database.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.ITransactionController">
+            <summary>
+            Interface for types, that can control transactions.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ITransactionController.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Begins a new transaction.
+            </summary>
+            <param name="isolationLevel">Isolation level to use for created transaction.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ITransactionController.CommitTransaction">
+            <summary>
+            Commits transaction.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ITransactionController.RollbackTransaction">
+            <summary>
+            Rollbacks transaction.
+            </summary>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.ITransactionController.IsTransactionInProgress">
+            <summary>
+            Gets a value indicating whether there is a transaction in progress.
+            </summary>
+        </member>
+        <member name="F:Lnow.Libraries.DataAccess.ConnectorBase.connector">
+            <summary>
+            Instance of <see cref="T:Lnow.Libraries.DataAccess.IDbConnector"/> implementation to use.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.#ctor(Lnow.Libraries.DataAccess.IDbConnector)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Lnow.Libraries.DataAccess.ConnectorBase"/> class.
+            </summary>
+            <param name="connector">Implementation of <see cref="T:Lnow.Libraries.DataAccess.IDbConnector"/> to use.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Begins new transaction.
+            </summary>
+            <param name="isolationLevel">Isolation level to use for transaction.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.CommitTransaction">
+            <summary>
+            Commits transaction.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.RollbackTransaction">
+            <summary>
+            Rollbacks transaction.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteQuery``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Action{System.Data.Common.DbCommand},Lnow.Libraries.DataAccess.RowReader{``0})">
+            <summary>
+            Executes command, that returns rows from database.
+            </summary>
+            <typeparam name="TItem">Type of item returned in a row.</typeparam>
+            <param name="commandText">Command text to execute.</param>
+            <param name="parameters">Command parameters to pass.</param>
+            <param name="commandModifier">Delegate, that allows modification of command just before execution.</param>
+            <param name="rowReader">Delegate for reading single row from database.</param>
+            <returns>Collection of rows found.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteQuery``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Lnow.Libraries.DataAccess.RowReader{``0})">
+            <summary>
+            Executes command, that returns rows from database.
+            </summary>
+            <typeparam name="TItem">Type of item returned in a row.</typeparam>
+            <param name="commandText">Command text to execute.</param>
+            <param name="parameters">Command parameters to pass.</param>
+            <param name="rowReader">Delegate for reading single row from database.</param>
+            <returns>Collection of rows found.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteCommand``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Action{System.Data.Common.DbCommand},System.Func{System.Object,``0})">
+            <summary>
+            Executes command, that returns it's result as return value
+            </summary>
+            <typeparam name="TResult">Type of result returned.</typeparam>
+            <param name="commandText">Command text to execute.</param>
+            <param name="parameters">Command parameters to pass.</param>
+            <param name="commandModifier">Delegate, that allows modification of command just before execution.</param>
+            <param name="resultConverter">Delegate for converting result to specific type.</param>
+            <returns>Result received from database.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteCommand``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Func{System.Object,``0})">
+            <summary>
+            Executes command, that returns it's result as return value
+            </summary>
+            <typeparam name="TResult">Type of result returned.</typeparam>
+            <param name="commandText">Command text to execute.</param>
+            <param name="parameters">Command parameters to pass.</param>
+            <param name="resultConverter">Delegate for converting result to specific type.</param>
+            <returns>Result received from database.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.Execute``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Action{System.Data.Common.DbCommand},System.Func{System.Data.Common.DbCommand,``0})">
+            <summary>
+            Executes command against a database.
+            </summary>
+            <typeparam name="T">Type of database result.</typeparam>
+            <param name="commandText">Command text to execute.</param>
+            <param name="parameters">Command parameters to pass.</param>
+            <param name="commandModifier">Delegate, that allows modification of command just before execution.</param>
+            <param name="commandExecution">Delegate executing logic for retrieving data from command.</param>
+            <returns>Result received from database.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.CreateParameter(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Creates instance of parameter.
+            </summary>
+            <param name="parameter">Parameter data to use for creation of database parameter.</param>
+            <returns>Parameter created.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.AttachInputParameters(System.Data.Common.DbCommand,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Attaches input parameters to database command.
+            </summary>
+            <param name="command">Command to attach parameters to.</param>
+            <param name="parameters">Parameters to be attached.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.AttachReturnValue(System.Data.Common.DbCommand,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Attaches unique parameter for retrieving return value from command.
+            </summary>
+            <param name="command">Command to attach parameter to.</param>
+            <param name="parameters">Parameters already attached.</param>
+            <returns>Name of parameter added.</returns>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.ConnectorBase.IsTransactionInProgress">
+            <summary>
+            Gets a value indicating whether there is a transaction in progress.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.DataReaderExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Data.Common.DbDataReader"/> class.
+            </summary>
+            <remarks>
+            These methods are helpers for retrieving data from data reader's row.
+            </remarks>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadObject(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an object from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadInt16(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an <see cref="T:System.Int16"/> value from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadInt16Nullable(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an <see cref="T:System.Int16"/> value from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadInt32(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an <see cref="T:System.Int32"/> value from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadInt32Nullable(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an <see cref="T:System.Int32"/> value from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadInt64(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an <see cref="T:System.Int64"/> value from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadInt64Nullable(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads an <see cref="T:System.Int64"/> value from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadString(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads a string from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadStringNullable(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads a string from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadDateTime(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads a <see cref="T:System.DateTime"/> from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadDateTimeNullable(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+            Reads a <see cref="T:System.DateTime"/> from reader.
+            </summary>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadValueType``1(System.Data.Common.DbDataReader,System.String,System.Func{System.Object,``0})">
+            <summary>
+            Reads a value type value from reader.
+            </summary>
+            <typeparam name="T">Type of value to retrieve.</typeparam>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <param name="valueConverter">Value converter to use</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadValueTypeNullable``1(System.Data.Common.DbDataReader,System.String,System.Func{System.Object,``0})">
+            <summary>
+            Reads a value type value from reader.
+            </summary>
+            <typeparam name="T">Type of value to retrieve.</typeparam>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <param name="valueConverter">Value converter to use</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadReferenceType``1(System.Data.Common.DbDataReader,System.String,System.Func{System.Object,``0})">
+            <summary>
+            Reads a reference value from reader.
+            </summary>
+            <typeparam name="T">Type of value to retrieve.</typeparam>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <param name="valueConverter">Value converter to use</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.DataReaderExtensions.ReadReferenceTypeNullable``1(System.Data.Common.DbDataReader,System.String,System.Func{System.Object,``0})">
+            <summary>
+            Reads a reference value from reader.
+            </summary>
+            <typeparam name="T">Type of value to retrieve.</typeparam>
+            <param name="reader">Reader to read column from.</param>
+            <param name="columnName">Name of column to read.</param>
+            <param name="valueConverter">Value converter to use</param>
+            <returns>Value retrieved.</returns>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.IDbConnector">
+            <summary>
+            Interface for types that provide access to specific database servers.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.IDbConnector.CreateCommand">
+            <summary>
+            Creates empty command.
+            </summary>
+            <returns>Command created.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.IDbConnector.CreateParameter">
+            <summary>
+            Creates empty command parameter.
+            </summary>
+            <returns>Created parameter.</returns>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.IDbConnector.Connection">
+            <summary>
+            Gets underlying connection.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.IParameterTypeResolver">
+            <summary>
+            Interface for types resolving database type of parameter.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.IParameterTypeResolver.ResolveType(System.Object)">
+            <summary>
+            Resolves database type for given value.
+            </summary>
+            <param name="value">Value to resolve type for.</param>
+            <returns>Database type resolved, or null if none specific type should be selected.</returns>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.IParameterTypeResolver.SupportedType">
+            <summary>
+            Gets type supported by this instance.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.ParameterTypeResolvers">
+            <summary>
+            Class for interacting with parameter type resolvers.
+            </summary>
+        </member>
+        <member name="F:Lnow.Libraries.DataAccess.ParameterTypeResolvers.resolvers">
+            <summary>
+            Active resolvers.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ParameterTypeResolvers.ResolveType(System.Object)">
+            <summary>
+            Resolves database type for given value.
+            </summary>
+            <param name="value">Value to resolve type for.</param>
+            <returns>Database type resolved, or null if none specific type should be selected.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.ParameterTypeResolvers.FindResolvers">
+            <summary>
+            Finds resolvers for current application.
+            </summary>
+            <returns>Enumeration of parameter type resolvers.</returns>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.ParameterTypeResolvers.Resolvers">
+            <summary>
+            Gets active resolvers.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.RowReader`1">
+            <summary>
+            Delegate for reading object from a reader row.
+            </summary>
+            <typeparam name="TItem">Type of item to retrieve from reader.</typeparam>
+            <param name="reader">Reader to retrieve item from.</param>
+            <returns>Item retrieved.</returns>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.SqlConnector">
+            <summary>
+            Implementation of <see cref="T:Lnow.Libraries.DataAccess.IDbConnector"/> for SQL Server.
+            </summary>
+        </member>
+        <member name="F:Lnow.Libraries.DataAccess.SqlConnector.connectionString">
+            <summary>
+            Connection string for this instance.
+            </summary>
+        </member>
+        <member name="F:Lnow.Libraries.DataAccess.SqlConnector.connection">
+            <summary>
+            Connection for transaction being active.
+            </summary>
+        </member>
+        <member name="F:Lnow.Libraries.DataAccess.SqlConnector.transaction">
+            <summary>
+            Currently active transaction, or null if no transaction.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Lnow.Libraries.DataAccess.SqlConnector"/> class.
+            </summary>
+            <param name="connectionString">Connection string for this instance.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Lnow.Libraries.DataAccess.SqlConnector"/> class.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Starts a new transaction.
+            </summary>
+            <param name="isolationLevel">Isolation level for a transaction.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.CommitTransaction">
+            <summary>
+            Commits a transaction.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.RollbackTransaction">
+            <summary>
+            Rollbacks a transaction.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.Dispose">
+            <summary>
+            Disposes this instance.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.CreateCommand">
+            <summary>
+            Creates a command.
+            </summary>
+            <returns>Command created.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.CreateParameter">
+            <summary>
+            Creates a parameter.
+            </summary>
+            <returns>Parameter created.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.Dispose(System.Boolean)">
+            <summary>
+            Disposes this instance.
+            </summary>
+            <param name="disposing">True to dispose managed resources.</param>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.CreateConnection">
+            <summary>
+            Creates a new connection.
+            </summary>
+            <returns>Connection created.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.SqlConnector.FinalizeTransaction">
+            <summary>
+            Finalizes transaction.
+            </summary>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.SqlConnector.IsTransactionInProgress">
+            <summary>
+            Gets a value indicating whether there is a transaction in progress.
+            </summary>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.SqlConnector.Connection">
+            <summary>
+            Gets connection provided by this instance.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.TypeResolvers.DateTimeResolver">
+            <summary>
+            Database type resolver for <see cref="T:System.DateTime"/>.
+            </summary>
+        </member>
+        <member name="T:Lnow.Libraries.DataAccess.TypeResolvers.ParameterTypeResolverBase`1">
+            <summary>
+            Base class for database types resolvers.
+            </summary>
+            <typeparam name="T">Framework type this instance resolves database types for.</typeparam>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.TypeResolvers.ParameterTypeResolverBase`1.ResolveType(System.Object)">
+            <summary>
+            Resolves database type for given value.
+            </summary>
+            <param name="value">Value to resolve type for.</param>
+            <returns>Database type resolved, or null if none specific type should be selected.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.TypeResolvers.ParameterTypeResolverBase`1.ResolveTypeInternal(`0)">
+            <summary>
+            Resolves database type for given value.
+            </summary>
+            <param name="value">Value to resolve type for.</param>
+            <returns>Database type resolved, or null if none specific type should be selected.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.TypeResolvers.ParameterTypeResolverBase`1.Cast(System.Object)">
+            <summary>
+            Casts value to resolve database type for.
+            </summary>
+            <param name="value">Value to be casted.</param>
+            <returns>Casted value.</returns>
+        </member>
+        <member name="P:Lnow.Libraries.DataAccess.TypeResolvers.ParameterTypeResolverBase`1.SupportedType">
+            <summary>
+            Gets framework type resolved.
+            </summary>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.TypeResolvers.DateTimeResolver.ResolveTypeInternal(System.DateTime)">
+            <summary>
+            Resolves database type for given value.
+            </summary>
+            <param name="value">Value to resolve type for.</param>
+            <returns>Database type resolved, or null if none specific type should be selected.</returns>
+        </member>
+    </members>
+</doc>
