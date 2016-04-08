@@ -1,11 +1,11 @@
-﻿// <copyright file="DataReaderExtensions.cs" company="Axa Direct Solutions">
-// Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce. All rights reserved.
+﻿// <copyright file="DataReaderExtensions.cs" company="LukaszNowakowski.it">
+// LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
 // <creationDate>2016-04-07</creationDate>
 // <author>Łukasz Nowakowski</author>
 // <description>Contains extension methods for DbDataReader.</description>
 
-namespace Ads.Lnow.Common.DataAccess
+namespace Lnow.Libraries.DataAccess
 {
     using System;
     using System.Data.Common;

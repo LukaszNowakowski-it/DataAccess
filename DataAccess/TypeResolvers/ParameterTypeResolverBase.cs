@@ -1,11 +1,11 @@
-﻿// <copyright file="ParameterTypeResolverBase.cs" company="Axa Direct Solutions">
-// Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce. All rights reserved.
+﻿// <copyright file="ParameterTypeResolverBase.cs" company="LukaszNowakowski.it">
+// LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
 // <creationDate>2016-04-07</creationDate>
 // <author>Łukasz Nowakowski</author>
 // <description>Contains base class for database types resolvers.</description>
 
-namespace Ads.Lnow.Common.DataAccess.TypeResolvers
+namespace Lnow.Libraries.DataAccess.TypeResolvers
 {
     using System;
     using System.Data;

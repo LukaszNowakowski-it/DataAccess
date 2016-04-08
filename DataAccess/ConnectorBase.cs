@@ -1,11 +1,11 @@
-﻿// <copyright file="ConnectorBase.cs" company="Axa Direct Solutions">
-// Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce. All rights reserved.
+﻿// <copyright file="ConnectorBase.cs" company="LukaszNowakowski.it">
+// LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
 // <creationDate>2016-04-07</creationDate>
 // <author>Łukasz Nowakowski</author>
 // <description>Contains base class for types interacting with database.</description>
 
-namespace Ads.Lnow.Common.DataAccess
+namespace Lnow.Libraries.DataAccess
 {
     using System;
     using System.Collections.Generic;

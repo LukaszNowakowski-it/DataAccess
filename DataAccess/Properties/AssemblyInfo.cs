@@ -1,5 +1,5 @@
-﻿// <copyright file="AssemblyInfo.cs" company="Axa Direct Solutions">
-// Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce. All rights reserved.
+﻿// <copyright file="AssemblyInfo.cs" company="LukaszNowakowski.it">
+// LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
 // <creationDate>2016-04-07</creationDate>
 // <author>Łukasz Nowakowski</author>
@@ -15,9 +15,9 @@ using System.Runtime.InteropServices;
 #else
 [assembly: AssemblyConfiguration("Release")]
 #endif
-[assembly: AssemblyCompany("Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce")]
-[assembly: AssemblyProduct("Common libraries")]
-[assembly: AssemblyCopyright("Copyright © Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce 2016")]
+[assembly: AssemblyCompany("LukaszNowakowski.it Łukasz Nowakowski")]
+[assembly: AssemblyProduct("Data access libraries")]
+[assembly: AssemblyCopyright("Copyright © LukaszNowakowski.it 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

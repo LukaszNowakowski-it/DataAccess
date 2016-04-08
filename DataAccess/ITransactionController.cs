@@ -1,11 +1,11 @@
-﻿// <copyright file="ITransactionController.cs" company="Axa Direct Solutions">
-// Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce. All rights reserved.
+﻿// <copyright file="ITransactionController.cs" company="LukaszNowakowski.it">
+// LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
 // <creationDate>2016-04-07</creationDate>
 // <author>Łukasz Nowakowski</author>
 // <description>Contains interface for types, that can control transaction.</description>
 
-namespace Ads.Lnow.Common.DataAccess
+namespace Lnow.Libraries.DataAccess
 {
     using System.Data;
 

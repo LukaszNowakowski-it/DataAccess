@@ -1,11 +1,11 @@
-﻿// <copyright file="RowReader.cs" company="Axa Direct Solutions">
-// Axa Direct Solutions SAS S A Uproszczona Oddział w Polsce. All rights reserved.
+﻿// <copyright file="RowReader.cs" company="LukaszNowakowski.it">
+// LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
 // <creationDate>2016-04-07</creationDate>
 // <author>Łukasz Nowakowski</author>
 // <description>Contains delegate for reading object from a reader row.</description>
 
-namespace Ads.Lnow.Common.DataAccess
+namespace Lnow.Libraries.DataAccess
 {
     using System.Data.Common;
 

@@ -7,8 +7,8 @@
     <ProjectGuid>{94219E4E-87BB-4733-A074-D0BBA1747E84}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ads.Lnow.Common.DataAccess</RootNamespace>
-    <AssemblyName>Ads.Lnow.Common.DataAccess</AssemblyName>
+    <RootNamespace>Lnow.Libraries.DataAccess</RootNamespace>
+    <AssemblyName>Lnow.Libraries.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\Ads.Lnow.Common.DataAccess.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Lnow.Libraries.DataAccess.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release\Ads.Lnow.Common.DataAccess.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Lnow.Libraries.DataAccess.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -63,6 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DataAccess.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
