@@ -13,7 +13,7 @@ namespace Lnow.Libraries.DataAccess
     /// <summary>
     /// Interface for types resolving database type of parameter.
     /// </summary>
-    internal interface IParameterTypeResolver
+    public interface IParameterTypeResolver
     {
         /// <summary>
         /// Gets type supported by this instance.

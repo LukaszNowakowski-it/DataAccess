@@ -13,7 +13,7 @@ namespace Lnow.Libraries.DataAccess.TypeResolvers
     /// <summary>
     /// Database type resolver for <see cref="DateTime" />.
     /// </summary>
-    internal class DateTimeResolver : ParameterTypeResolverBase<DateTime>
+    public class DateTimeResolver : ParameterTypeResolverBase<DateTime>
     {
         /// <summary>
         /// Resolves database type for given value.

@@ -1,15 +1,15 @@
 ﻿// <copyright file="AssemblyInfo.cs" company="LukaszNowakowski.it">
 // LukaszNowakowski.it Łukasz Nowakowski. All rights reserved.
 // </copyright>
-// <creationDate>2016-04-07</creationDate>
+// <creationDate>2016-04-08</creationDate>
 // <author>Łukasz Nowakowski</author>
 // <description>Contains information about this assembly.</description>
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("DataAccess")]
-[assembly: AssemblyDescription("Classes for accessing database")]
+[assembly: AssemblyTitle("UnitTests")]
+[assembly: AssemblyDescription("Unit tests for library")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
 #else
@@ -22,6 +22,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-[assembly: Guid("3d685c52-f8b9-435d-991a-9347890878d6")]
+[assembly: Guid("f4ded4c4-c2ea-4e7a-8f1d-4f121da6bd37")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
