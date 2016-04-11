@@ -55,6 +55,3 @@ For now library supports only Microsoft SQL Server, but I plan on adding some ot
 
 ##License
 Code of this library is provided under MIT license.
-
-##License
-Code of this library is provided under MIT license.
