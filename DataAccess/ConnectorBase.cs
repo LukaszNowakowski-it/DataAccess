@@ -83,7 +83,7 @@ namespace Lnow.Libraries.DataAccess
             string commandText,
             Dictionary<string, object> parameters,
             Action<DbCommand> commandModifier,
-            RowReader<TItem> rowReader)
+            IRowReader<TItem> rowReader)
             where TItem : class
         {
             if (rowReader == null)
@@ -101,7 +101,7 @@ namespace Lnow.Libraries.DataAccess
                     var result = new Collection<TItem>();
                     while (reader.Read())
                     {
-                        result.Add(item: rowReader(reader));
+                        result.Add(rowReader.Read(reader));
                     }
 
                     return result;
@@ -119,7 +119,7 @@ namespace Lnow.Libraries.DataAccess
         protected Collection<TItem> ExecuteQuery<TItem>(
             string commandText,
             Dictionary<string, object> parameters,
-            RowReader<TItem> rowReader)
+            IRowReader<TItem> rowReader)
             where TItem : class
         {
             return ExecuteQuery(commandText, parameters, null, rowReader);

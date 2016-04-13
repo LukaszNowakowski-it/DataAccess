@@ -56,7 +56,7 @@
     <Compile Include="ITransactionController.cs" />
     <Compile Include="ParameterTypeResolvers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RowReader.cs" />
+    <Compile Include="IRowReader.cs" />
     <Compile Include="SqlConnector.cs" />
     <Compile Include="TypeResolvers\DateTimeResolver.cs" />
     <Compile Include="TypeResolvers\ParameterTypeResolverBase.cs" />

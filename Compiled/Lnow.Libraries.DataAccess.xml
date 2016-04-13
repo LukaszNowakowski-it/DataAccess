@@ -62,7 +62,7 @@
             Rollbacks transaction.
             </summary>
         </member>
-        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteQuery``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Action{System.Data.Common.DbCommand},Lnow.Libraries.DataAccess.RowReader{``0})">
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteQuery``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Action{System.Data.Common.DbCommand},Lnow.Libraries.DataAccess.IRowReader{``0})">
             <summary>
             Executes command, that returns rows from database.
             </summary>
@@ -73,7 +73,7 @@
             <param name="rowReader">Delegate for reading single row from database.</param>
             <returns>Collection of rows found.</returns>
         </member>
-        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteQuery``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Lnow.Libraries.DataAccess.RowReader{``0})">
+        <member name="M:Lnow.Libraries.DataAccess.ConnectorBase.ExecuteQuery``1(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Lnow.Libraries.DataAccess.IRowReader{``0})">
             <summary>
             Executes command, that returns rows from database.
             </summary>
@@ -345,13 +345,18 @@
             Gets active resolvers.
             </summary>
         </member>
-        <member name="T:Lnow.Libraries.DataAccess.RowReader`1">
+        <member name="T:Lnow.Libraries.DataAccess.IRowReader`1">
             <summary>
-            Delegate for reading object from a reader row.
+            Interface for classes that read object from a reader row.
             </summary>
             <typeparam name="TItem">Type of item to retrieve from reader.</typeparam>
-            <param name="reader">Reader to retrieve item from.</param>
-            <returns>Item retrieved.</returns>
+        </member>
+        <member name="M:Lnow.Libraries.DataAccess.IRowReader`1.Read(System.Data.Common.DbDataReader)">
+            <summary>
+            Reads object from row.
+            </summary>
+            <param name="reader">Reader to read from.</param>
+            <returns>Object read.</returns>
         </member>
         <member name="T:Lnow.Libraries.DataAccess.SqlConnector">
             <summary>
