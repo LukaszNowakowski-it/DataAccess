@@ -261,7 +261,7 @@ namespace Lnow.Libraries.DataAccess
         private string AttachReturnValue(DbCommand command, Dictionary<string, object> parameters)
         {
             var parameterName = "ReturnValue";
-            if (parameters.ContainsKey(parameterName))
+            if (parameters != null && parameters.ContainsKey(parameterName))
             {
                 const string ParameterNameFormat = "ReturnValue{0}";
                 var currentIndex = 1;
