@@ -77,6 +77,17 @@ namespace Lnow.Libraries.DataAccess
         }
 
         /// <summary>
+        /// Gets transaction, if one is in progress, otherwise null is returned.
+        /// </summary>
+        public DbTransaction Transaction
+        {
+            get
+            {
+                return this.transaction;
+            }
+        }
+
+        /// <summary>
         /// Starts a new transaction.
         /// </summary>
         /// <param name="isolationLevel">Isolation level for a transaction.</param>

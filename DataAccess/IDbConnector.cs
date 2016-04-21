@@ -24,6 +24,14 @@ namespace Lnow.Libraries.DataAccess
         }
 
         /// <summary>
+        /// Gets transaction, if one is in progress, otherwise null is returned.
+        /// </summary>
+        DbTransaction Transaction
+        {
+            get;
+        }
+
+        /// <summary>
         /// Creates empty command.
         /// </summary>
         /// <returns>Command created.</returns>

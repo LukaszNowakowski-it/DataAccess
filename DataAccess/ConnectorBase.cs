@@ -210,6 +210,11 @@ namespace Lnow.Libraries.DataAccess
                 }
 
                 command.Connection = this.connector.Connection;
+                if (this.IsTransactionInProgress)
+                {
+                    command.Transaction = this.connector.Transaction;
+                }
+
                 if (commandModifier != null)
                 {
                     commandModifier(command);
