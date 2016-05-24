@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandParameter.cs" />
     <Compile Include="ConnectorBase.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="IDbConnector.cs" />

@@ -69,7 +69,7 @@ namespace Lnow.Libraries.DataAccess.UnitTests
         /// <returns>Mock created.</returns>
         private static DbDataReader CreateReaderMock(string column, object value)
         {
-            return CreateReaderMock(new Dictionary<string, object>() { { column, value } });
+            return CreateReaderMock(new Dictionary<string, object> { { column, value } });
         }
 
         /// <summary>
